@@ -24,7 +24,7 @@ export default function App() {
         <View style={styles.textBox}>
 
           <Text style={styles.nameinfo}>Ranbeer</Text>
-          <Text style={styles.desc}>IT</Text>
+          <Text style={styles.desc}>ranb__r</Text>
         </View>
       </View>
       <View>
@@ -82,7 +82,7 @@ const styles = StyleSheet.create({
     marginHorizontal: 12
   },
   searchImage:{
-    height:30,
-    width:30
+    height:25,
+    width:25
   }
 })

@@ -11,7 +11,7 @@ export default function Card() {
 
 const[inputValue,setinputValue] = useState('')  //INR Value
 const[output,setOutput] = useState('')
-const[selection,setSelection] = useState('')
+const[cardVisible,setVisibility] = useState(false)
 
 const Submit = (targetValue : Currency) => {
     if (!inputValue) {
@@ -27,14 +27,11 @@ const Submit = (targetValue : Currency) => {
         const convertedValue = (inputAmount*targetValue.value)
         const result = `${targetValue.symbol} ${convertedValue.toFixed(2)}`
         setOutput(result)
-        setSelection(targetValue.name)
+        
         }else{
           //snackbar
         }
 };
-
-
-
 
 
   return (
@@ -44,31 +41,32 @@ const Submit = (targetValue : Currency) => {
 
       <Text style={styles.headertext}>Welcome To Converter</Text>
         </View>
-        <TextInput value={inputValue} onChangeText={setinputValue} cursorColor={"#000"} keyboardType='decimal-pad' placeholder='Enter Amount in Rupees' placeholderTextColor={"#000"} style={styles.inputField}></TextInput>
-        <Pressable>
-            <Text style={styles.buttonSubmit}>Submit</Text>
-        </Pressable>
+        <TextInput maxLength= {8} value={inputValue} onChangeText={setinputValue} cursorColor={"#000"} keyboardType='decimal-pad' placeholder='Enter Amount in Rupees' placeholderTextColor={"#000"} style={styles.inputField}></TextInput>
 
-
+      <View style={styles.buttonsContainer}>
       <FlatList 
        numColumns={3}
        data={currencyByRupee}
        keyExtractor={item => item.name}
-       renderItem={(item)=>(
-        <Pressable onPress={()=>{Submit}}>
+       renderItem={({item})=>(
+
+        <Pressable  onPress={()=>{
+          Submit(item)
+          setVisibility(true)
+        }}>
             <CurrencyButton {...item}/>
         </Pressable>
-       )}
-       
+       )
+      }
       />
-
-        {(output!='')? 
-         <View style={styles.resultCard}>
-         <Text style={styles.resultText}>{inputValue} INR = {output} USD</Text>
-     </View>
-     : null}
+      </View>
+      {cardVisible?
+      <View style={styles.resultCard}>
+         <Text style={styles.resultText}>₹{inputValue} = {output}</Text>
+     </View>:null
+}
+      
     
-    <CurrencyButton/>
     </View>
 
     </>
@@ -119,15 +117,21 @@ const styles = StyleSheet.create({
       resultCard:{
         backgroundColor: '#000',
         margin:12,
-        borderRadius: 30,
+        borderRadius: 15,
         paddingVertical: 20,
         height: 'auto',
         alignItems: 'center',
-        justifyContent: 'center'
+        justifyContent: 'center',
+        elevation:3
+
       },
       resultText: {
         color: '#fff',
         fontFamily: 'Inter-ExtraBold',
-        fontSize: 30
+        fontSize: 23
+      },
+      buttonsContainer:{
+        alignItems: 'center',
+        justifyContent: 'center'
       }
 })

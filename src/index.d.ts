@@ -1,4 +1,4 @@
-type Currency = {
+interface Currency {
     name: string;
     value: number;
     flag:string;
