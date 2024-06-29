@@ -63,7 +63,9 @@ const Submit = (targetValue : Currency) => {
       {cardVisible?
       <View style={styles.resultCard}>
          <Text style={styles.resultText}>₹{inputValue} = {output}</Text>
-     </View>:null
+     </View>: <View style={styles.resultCard}>
+            <Text style={styles.resultText}>₹1 = $0.12</Text>
+     </View>
 }
       
     
@@ -133,5 +135,23 @@ const styles = StyleSheet.create({
       buttonsContainer:{
         alignItems: 'center',
         justifyContent: 'center'
+      },
+      descText:{
+        color: '#fff',
+        fontFamily: 'Inter-Regular',
+        fontSize: 23
+      
+      },
+      resultCardBefore:{
+        backgroundColor: '#000',
+        margin:12,
+        borderRadius: 15,
+        paddingVertical: 20,
+        height: 'auto',
+        alignItems: 'center',
+        justifyContent: 'center',
+        elevation:3,
+        
+
       }
 })
